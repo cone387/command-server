@@ -1,5 +1,5 @@
 #/bin/bash
-set -e
+#set -e
 
 echo original parameters=[$*]
 
@@ -160,8 +160,8 @@ for((i=0;i<$INCREMENT;i++)) ; do
   CURRENT_PROJECT=$PROJECT-$NOW
   echo "docker build $NO_CACHE -t $CURRENT_PROJECT -f $BUILD_PATH/Dockerfile $BUILD_PATH"
   docker build $NO_CACHE -t $PROJECT -f $BUILD_PATH/Dockerfile $BUILD_PATH
-  echo "docker run -d --name $CURRENT_PROJECT $PROJECT -p 8000:8000 --log-opt max-size=100m"
-  docker run -d --name $CURRENT_PROJECT $PROJECT -p 8000:8000 --log-opt max-size=100m
+  echo "docker run -d -p 8002:8000 --name $CURRENT_PROJECT $PROJECT --log-opt max-size=100m"
+  docker run -d -p 8002:8000 --name $CURRENT_PROJECT $PROJECT --log-opt max-size=100m
   sleep 1
 done
 
