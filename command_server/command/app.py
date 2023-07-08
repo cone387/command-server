@@ -12,10 +12,12 @@ async def list_commands():
     commands = []
     for x in Command.values():
         schema = x.model.schema()
+        required = schema["required"]
         kwargs_properties = {
             k: {
                 "type": v.annotation.__name__,
-                "default": v.default
+                "default": v.default,
+                "required": k in required,
             } for k, v in inspect.signature(x.execute).parameters.items()
         }
         kwargs_properties.pop("self", None)
